@@ -24,7 +24,7 @@
             --line: rgba(255, 255, 255, .08);
             --surface: #1C1915;
             --bg: #0E0C0A;
-            --font: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --shadow: 0 8px 30px rgba(0, 0, 0, .55);
             --radius-xl: 24px;
             --radius-lg: 18px;
@@ -250,6 +250,10 @@
         .btn.green {
             background: var(--green);
             box-shadow: 0 6px 18px rgba(15, 110, 86, .28);
+        }
+        .btn:disabled {
+            opacity: .5;
+            pointer-events: none;
         }
         .btn svg {
             font-size: 17px;
@@ -4317,6 +4321,237 @@
             <div class="footer"><button class="btn" id="introBtn" onclick="introNext()">Suivant</button></div>
         </div>
 
+        <!-- ===== NOUVEAU : INSCRIPTION PRO ===== -->
+        <div class="screen" id="s-register">
+            <div style="display:flex;flex-direction:column;height:100%;">
+                <!-- Indicateurs d'étapes -->
+                <div style="display:flex;gap:4px;padding:16px 16px 0;flex-shrink:0;">
+                    <div class="reg-dot active" data-step="0" style="flex:1;height:4px;border-radius:4px;background:var(--orange);transition:.4s;"></div>
+                    <div class="reg-dot" data-step="1" style="flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.10);transition:.4s;"></div>
+                    <div class="reg-dot" data-step="2" style="flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.10);transition:.4s;"></div>
+                    <div class="reg-dot" data-step="3" style="flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.10);transition:.4s;"></div>
+                </div>
+
+                <!-- Étape 1 : Informations -->
+                <div class="reg-step" data-step="0" style="flex:1;overflow-y:auto;padding:12px 16px 0;-webkit-overflow-scrolling:touch;">
+                    <div style="text-align:center;margin-bottom:16px;">
+                        <div style="width:64px;height:64px;border-radius:50%;background:var(--orange-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
+                            <svg class="ic-svg" style="font-size:28px;color:var(--orange)" aria-hidden="true"><use href="#i-user-plus"></use></svg>
+                        </div>
+                        <h2 style="font-size:19px;font-weight:700;letter-spacing:-.3px;">Créez votre compte</h2>
+                        <p style="font-size:13px;color:var(--grey);margin-top:4px;">Renseignez vos informations personnelles</p>
+                    </div>
+
+                    <div class="input-group" style="margin-bottom:14px;">
+                        <label style="display:block;font-size:12px;color:var(--grey);margin-bottom:4px;font-weight:500;">Nom complet</label>
+                        <div style="display:flex;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;transition:border-color .25s;">
+                            <input type="text" id="reg-name" placeholder="Ex: Awa Ndiaye" value="Awa Ndiaye" style="flex:1;background:transparent;border:none;padding:14px;font-size:14px;color:var(--ink);outline:none;font-weight:500;">
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="margin-bottom:14px;">
+                        <label style="display:block;font-size:12px;color:var(--grey);margin-bottom:4px;font-weight:500;">Numéro de téléphone</label>
+                        <div style="display:flex;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;transition:border-color .25s;">
+                            <span style="padding:0 0 0 14px;font-size:14px;color:var(--grey);font-weight:500;flex-shrink:0;">+221</span>
+                            <input type="tel" id="reg-phone" placeholder="77 123 45 67" value="77 123 45 67" maxlength="12" style="flex:1;background:transparent;border:none;padding:14px;font-size:14px;color:var(--ink);outline:none;font-weight:500;">
+                        </div>
+                        <div style="font-size:11px;color:var(--grey);margin-top:4px;padding-left:4px;">Format: 77 123 45 67</div>
+                    </div>
+
+                    <div class="input-group" style="margin-bottom:14px;">
+                        <label style="display:block;font-size:12px;color:var(--grey);margin-bottom:4px;font-weight:500;">Adresse email</label>
+                        <div style="display:flex;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;transition:border-color .25s;">
+                            <input type="email" id="reg-email" placeholder="exemple@email.com" value="awa@maxit.sn" style="flex:1;background:transparent;border:none;padding:14px;font-size:14px;color:var(--ink);outline:none;font-weight:500;">
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="margin-bottom:14px;">
+                        <label style="display:block;font-size:12px;color:var(--grey);margin-bottom:4px;font-weight:500;">Date de naissance</label>
+                        <div style="display:flex;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;transition:border-color .25s;">
+                            <input type="date" id="reg-birth" value="1990-01-15" style="flex:1;background:transparent;border:none;padding:14px;font-size:14px;color:var(--ink);outline:none;font-weight:500;color-scheme:dark;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Étape 2 : Mot de passe -->
+                <div class="reg-step" data-step="1" style="flex:1;overflow-y:auto;padding:12px 16px 0;-webkit-overflow-scrolling:touch;display:none;">
+                    <div style="text-align:center;margin-bottom:16px;">
+                        <div style="width:64px;height:64px;border-radius:50%;background:var(--blue-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
+                            <svg class="ic-svg" style="font-size:28px;color:var(--blue)" aria-hidden="true"><use href="#i-lock"></use></svg>
+                        </div>
+                        <h2 style="font-size:19px;font-weight:700;letter-spacing:-.3px;">Créez votre mot de passe</h2>
+                        <p style="font-size:13px;color:var(--grey);margin-top:4px;">Un mot de passe fort protège votre compte</p>
+                    </div>
+
+                    <div class="input-group" style="margin-bottom:14px;">
+                        <label style="display:block;font-size:12px;color:var(--grey);margin-bottom:4px;font-weight:500;">Mot de passe</label>
+                        <div style="display:flex;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;transition:border-color .25s;">
+                            <input type="password" id="reg-password" placeholder="••••••••" value="Maxit2026!" style="flex:1;background:transparent;border:none;padding:14px;font-size:14px;color:var(--ink);outline:none;font-weight:500;">
+                            <span class="toggle-pwd" onclick="togglePwd('reg-password', this)" style="padding:0 14px;cursor:pointer;color:var(--grey);font-size:18px;">
+                                <svg class="ic-svg" style="font-size:18px;" aria-hidden="true"><use href="#i-eye"></use></svg>
+                            </span>
+                        </div>
+                        <div style="font-size:11px;color:var(--grey);margin-top:4px;padding-left:4px;" id="pwd-hint">Minimum 8 caractères, une majuscule et un chiffre</div>
+                    </div>
+
+                    <div class="input-group" style="margin-bottom:14px;">
+                        <label style="display:block;font-size:12px;color:var(--grey);margin-bottom:4px;font-weight:500;">Confirmer le mot de passe</label>
+                        <div style="display:flex;align-items:center;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;transition:border-color .25s;">
+                            <input type="password" id="reg-password-confirm" placeholder="••••••••" value="Maxit2026!" style="flex:1;background:transparent;border:none;padding:14px;font-size:14px;color:var(--ink);outline:none;font-weight:500;">
+                            <span class="toggle-pwd" onclick="togglePwd('reg-password-confirm', this)" style="padding:0 14px;cursor:pointer;color:var(--grey);font-size:18px;">
+                                <svg class="ic-svg" style="font-size:18px;" aria-hidden="true"><use href="#i-eye"></use></svg>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:8px;background:var(--green-soft);border-radius:10px;padding:10px 14px;margin-bottom:12px;" id="pwd-strength">
+                        <svg class="ic-svg" style="font-size:18px;color:var(--green-br);flex-shrink:0;" aria-hidden="true"><use href="#i-shield-check"></use></svg>
+                        <span style="font-size:12px;color:var(--green-br);font-weight:500;">Force : <strong id="pwd-strength-label">Fort</strong></span>
+                    </div>
+                </div>
+
+                <!-- Étape 3 : Carte d'identité -->
+                <div class="reg-step" data-step="2" style="flex:1;overflow-y:auto;padding:12px 16px 0;-webkit-overflow-scrolling:touch;display:none;">
+                    <div style="text-align:center;margin-bottom:16px;">
+                        <div style="width:64px;height:64px;border-radius:50%;background:var(--green-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
+                            <svg class="ic-svg" style="font-size:28px;color:var(--green)" aria-hidden="true"><use href="#i-id-card"></use></svg>
+                        </div>
+                        <h2 style="font-size:19px;font-weight:700;letter-spacing:-.3px;">Vérification d'identité</h2>
+                        <p style="font-size:13px;color:var(--grey);margin-top:4px;">Photographiez votre carte d'identité recto-verso</p>
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 12px;">
+                        <div class="id-box" id="id-front" onclick="document.getElementById('id-front-input').click()" style="border:2px dashed var(--line);border-radius:14px;padding:16px 10px;text-align:center;cursor:pointer;transition:all .25s;background:var(--surface);min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+                            <svg class="ic-svg" style="font-size:28px;color:var(--grey);" aria-hidden="true"><use href="#i-camera"></use></svg>
+                            <span style="font-size:11px;font-weight:600;color:var(--grey);">Recto CNI</span>
+                            <span style="font-size:10px;font-weight:500;" id="front-status">En attente</span>
+                            <input type="file" id="id-front-input" accept="image/*" style="display:none;" onchange="handleIdUpload('front', this)">
+                            <img class="preview" id="front-preview" style="display:none;max-width:100%;max-height:70px;border-radius:8px;object-fit:cover;margin-top:4px;" alt="Recto">
+                        </div>
+                        <div class="id-box" id="id-back" onclick="document.getElementById('id-back-input').click()" style="border:2px dashed var(--line);border-radius:14px;padding:16px 10px;text-align:center;cursor:pointer;transition:all .25s;background:var(--surface);min-height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+                            <svg class="ic-svg" style="font-size:28px;color:var(--grey);" aria-hidden="true"><use href="#i-camera"></use></svg>
+                            <span style="font-size:11px;font-weight:600;color:var(--grey);">Verso CNI</span>
+                            <span style="font-size:10px;font-weight:500;" id="back-status">En attente</span>
+                            <input type="file" id="id-back-input" accept="image/*" style="display:none;" onchange="handleIdUpload('back', this)">
+                            <img class="preview" id="back-preview" style="display:none;max-width:100%;max-height:70px;border-radius:8px;object-fit:cover;margin-top:4px;" alt="Verso">
+                        </div>
+                    </div>
+
+                    <div style="background:var(--surface);border-radius:12px;padding:12px 14px;border:.5px solid var(--line);margin:8px 0 12px;" id="id-info">
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:.5px solid rgba(255,255,255,.04);">
+                            <span style="color:var(--grey);">N° CNI</span>
+                            <span style="font-weight:500;color:var(--ink);" id="id-number">1 234 1990 00123</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:.5px solid rgba(255,255,255,.04);">
+                            <span style="color:var(--grey);">Nom complet</span>
+                            <span style="font-weight:500;color:var(--ink);" id="id-name">Awa Ndiaye</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:.5px solid rgba(255,255,255,.04);">
+                            <span style="color:var(--grey);">Date de naissance</span>
+                            <span style="font-weight:500;color:var(--ink);" id="id-birth">15/01/1990</span>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;">
+                            <span style="color:var(--grey);">Validité</span>
+                            <span style="font-weight:500;color:var(--green);" id="id-valid">✅ Valide</span>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:8px;background:var(--green-soft);border-radius:10px;padding:10px 14px;margin:8px 0 12px;" id="id-verification">
+                        <svg class="ic-svg" style="font-size:18px;color:var(--green);flex-shrink:0;" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+                        <span style="font-size:12px;color:var(--green-br);font-weight:500;">Documents conformes — identité vérifiée</span>
+                    </div>
+                </div>
+
+                <!-- Étape 4 : QR Code -->
+                <div class="reg-step" data-step="3" style="flex:1;overflow-y:auto;padding:12px 16px 0;-webkit-overflow-scrolling:touch;display:none;">
+                    <div style="text-align:center;margin-bottom:16px;">
+                        <div style="width:64px;height:64px;border-radius:50%;background:var(--orange-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
+                            <svg class="ic-svg" style="font-size:28px;color:var(--orange)" aria-hidden="true"><use href="#i-qrcode"></use></svg>
+                        </div>
+                        <h2 style="font-size:19px;font-weight:700;letter-spacing:-.3px;">Votre identité numérique</h2>
+                        <p style="font-size:13px;color:var(--grey);margin-top:4px;">Votre QR code unique pour recevoir de l'argent</p>
+                    </div>
+
+                    <div style="display:flex;flex-direction:column;align-items:center;padding:6px 0 10px;">
+                        <div style="background:#fff;padding:16px;border-radius:18px;box-shadow:var(--shadow);position:relative;border:.5px solid rgba(255,255,255,.08);">
+                            <div style="position:absolute;width:20px;height:20px;border:3px solid var(--orange);top:6px;left:6px;border-right:none;border-bottom:none;border-radius:6px 0 0 0;"></div>
+                            <div style="position:absolute;width:20px;height:20px;border:3px solid var(--orange);top:6px;right:6px;border-left:none;border-bottom:none;border-radius:0 6px 0 0;"></div>
+                            <div style="position:absolute;width:20px;height:20px;border:3px solid var(--orange);bottom:6px;left:6px;border-right:none;border-top:none;border-radius:0 0 0 6px;"></div>
+                            <div style="position:absolute;width:20px;height:20px;border:3px solid var(--orange);bottom:6px;right:6px;border-left:none;border-top:none;border-radius:0 0 6px 0;"></div>
+                            <svg viewBox="0 0 120 120" width="160" height="160" shape-rendering="crispEdges">
+                                <rect width="120" height="120" fill="#fff"/>
+                                <g fill="#1a1716">
+                                    <rect x="10" y="10" width="24" height="24" rx="2"/><rect x="14" y="14" width="16" height="16" fill="#fff" rx="1"/><rect x="18" y="18" width="8" height="8" rx="1"/>
+                                    <rect x="86" y="10" width="24" height="24" rx="2"/><rect x="90" y="14" width="16" height="16" fill="#fff" rx="1"/><rect x="94" y="18" width="8" height="8" rx="1"/>
+                                    <rect x="10" y="86" width="24" height="24" rx="2"/><rect x="14" y="90" width="16" height="16" fill="#fff" rx="1"/><rect x="18" y="94" width="8" height="8" rx="1"/>
+                                    <rect x="38" y="10" width="4" height="4"/><rect x="46" y="10" width="4" height="4"/><rect x="54" y="10" width="4" height="4"/><rect x="66" y="10" width="4" height="4"/><rect x="74" y="10" width="4" height="4"/>
+                                    <rect x="10" y="38" width="4" height="4"/><rect x="18" y="38" width="4" height="4"/><rect x="26" y="38" width="4" height="4"/><rect x="38" y="38" width="4" height="4"/><rect x="46" y="46" width="4" height="4"/>
+                                    <rect x="54" y="38" width="4" height="4"/><rect x="62" y="38" width="4" height="4"/><rect x="74" y="38" width="4" height="4"/><rect x="82" y="38" width="4" height="4"/><rect x="90" y="46" width="4" height="4"/>
+                                    <rect x="10" y="46" width="4" height="4"/><rect x="18" y="46" width="4" height="4"/><rect x="30" y="46" width="4" height="4"/><rect x="38" y="54" width="4" height="4"/><rect x="50" y="54" width="4" height="4"/>
+                                    <rect x="62" y="46" width="4" height="4"/><rect x="70" y="46" width="4" height="4"/><rect x="82" y="46" width="4" height="4"/><rect x="98" y="46" width="4" height="4"/>
+                                    <rect x="46" y="54" width="4" height="4"/><rect x="54" y="54" width="4" height="4"/><rect x="70" y="54" width="4" height="4"/><rect x="78" y="54" width="4" height="4"/><rect x="90" y="54" width="4" height="4"/>
+                                    <rect x="10" y="54" width="4" height="4"/><rect x="30" y="62" width="4" height="4"/><rect x="38" y="62" width="4" height="4"/><rect x="50" y="62" width="4" height="4"/><rect x="58" y="62" width="4" height="4"/>
+                                    <rect x="70" y="62" width="4" height="4"/><rect x="78" y="62" width="4" height="4"/><rect x="86" y="62" width="4" height="4"/><rect x="98" y="62" width="4" height="4"/>
+                                    <rect x="10" y="70" width="4" height="4"/><rect x="18" y="70" width="4" height="4"/><rect x="30" y="70" width="4" height="4"/><rect x="46" y="70" width="4" height="4"/><rect x="62" y="70" width="4" height="4"/>
+                                    <rect x="74" y="70" width="4" height="4"/><rect x="82" y="70" width="4" height="4"/><rect x="94" y="70" width="4" height="4"/>
+                                    <rect x="18" y="78" width="4" height="4"/><rect x="26" y="78" width="4" height="4"/><rect x="38" y="78" width="4" height="4"/><rect x="50" y="78" width="4" height="4"/><rect x="66" y="78" width="4" height="4"/>
+                                    <rect x="82" y="78" width="4" height="4"/><rect x="98" y="78" width="4" height="4"/>
+                                    <rect x="38" y="86" width="4" height="4"/><rect x="46" y="86" width="4" height="4"/><rect x="58" y="86" width="4" height="4"/><rect x="70" y="86" width="4" height="4"/><rect x="86" y="86" width="4" height="4"/>
+                                    <rect x="10" y="94" width="4" height="4"/><rect x="26" y="94" width="4" height="4"/><rect x="38" y="94" width="4" height="4"/><rect x="54" y="94" width="4" height="4"/><rect x="66" y="94" width="4" height="4"/><rect x="78" y="94" width="4" height="4"/><rect x="94" y="94" width="4" height="4"/>
+                                    <rect x="10" y="102" width="4" height="4"/><rect x="22" y="102" width="4" height="4"/><rect x="38" y="102" width="4" height="4"/><rect x="54" y="102" width="4" height="4"/><rect x="70" y="102" width="4" height="4"/><rect x="82" y="102" width="4" height="4"/><rect x="94" y="102" width="4" height="4"/>
+                                    <rect x="10" y="110" width="4" height="4"/><rect x="26" y="110" width="4" height="4"/><rect x="42" y="110" width="4" height="4"/><rect x="58" y="110" width="4" height="4"/><rect x="74" y="110" width="4" height="4"/><rect x="90" y="110" width="4" height="4"/>
+                                </g>
+                            </svg>
+                        </div>
+                        <div style="text-align:center;margin-top:10px;">
+                            <div style="font-size:15px;font-weight:700;color:var(--ink);" id="qr-name">Awa Ndiaye</div>
+                            <div style="font-size:12px;color:var(--grey);" id="qr-phone">+221 77 123 45 67</div>
+                            <div style="display:inline-block;margin-top:4px;background:var(--green-soft);color:var(--green);font-size:10px;font-weight:600;padding:2px 12px;border-radius:10px;">✅ Compte vérifié</div>
+                        </div>
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 4px;">
+                        <div style="background:var(--surface);border:.5px solid var(--line);border-radius:12px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;">
+                            <svg class="ic-svg" style="font-size:20px;color:var(--green);" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+                            <span style="font-size:10px;color:var(--grey);font-weight:500;">Identité</span>
+                            <span style="font-size:11px;font-weight:600;color:var(--green);">Vérifiée</span>
+                        </div>
+                        <div style="background:var(--surface);border:.5px solid var(--line);border-radius:12px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;">
+                            <svg class="ic-svg" style="font-size:20px;color:var(--green);" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+                            <span style="font-size:10px;color:var(--grey);font-weight:500;">Numéro</span>
+                            <span style="font-size:11px;font-weight:600;color:var(--green);">Validé</span>
+                        </div>
+                        <div style="background:var(--surface);border:.5px solid var(--line);border-radius:12px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;">
+                            <svg class="ic-svg" style="font-size:20px;color:var(--green);" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+                            <span style="font-size:10px;color:var(--grey);font-weight:500;">Sécurité</span>
+                            <span style="font-size:11px;font-weight:600;color:var(--green);">Active</span>
+                        </div>
+                        <div style="background:var(--surface);border:.5px solid var(--line);border-radius:12px;padding:10px 8px;display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;">
+                            <svg class="ic-svg" style="font-size:20px;color:var(--green);" aria-hidden="true"><use href="#i-check-circle"></use></svg>
+                            <span style="font-size:10px;color:var(--grey);font-weight:500;">KYC</span>
+                            <span style="font-size:11px;font-weight:600;color:var(--green);">Complété</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer navigation -->
+                <div style="padding:12px 16px 14px;display:flex;flex-direction:column;gap:8px;flex-shrink:0;background:var(--bg);border-top:.5px solid var(--line);">
+                    <div style="display:flex;gap:8px;width:100%;">
+                        <button class="btn ghost" id="reg-back" style="flex:0 0 auto;width:auto;padding:12px 16px;min-height:44px;display:none;" onclick="regPrev()">
+                            <svg class="ic-svg" style="font-size:18px;" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+                        </button>
+                        <button class="btn" id="reg-next" onclick="regNext()">
+                            <span id="reg-btn-text">Continuer</span>
+                            <svg class="ic-svg" style="font-size:18px;" aria-hidden="true"><use href="#i-chevron-right"></use></svg>
+                        </button>
+                    </div>
+                    <div style="text-align:center;margin-top:2px;">
+                        <span style="font-size:11px;color:var(--grey);cursor:pointer;" onclick="go('s-login')">Déjà un compte ? Se connecter</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- HOME -->
         <div class="screen" id="s-home">
             <div class="body" id="home-body">
@@ -5356,18 +5591,315 @@
         <button class="startbtn" onclick="go('s-home')"><svg class="ic-svg" aria-hidden="true"><use href="#i-home"></use></svg>Accueil</button>
         <button class="startbtn" onclick="go('s-bills')"><svg class="ic-svg" aria-hidden="true"><use href="#i-file-invoice"></use></svg>Paiement</button>
         <button class="startbtn" onclick="go('s-hwg')"><svg class="ic-svg" aria-hidden="true"><use href="#i-map-pin"></use></svg>HereWeGo</button>
-        <button class="startbtn" onclick="go('s-ob1')"><svg class="ic-svg" aria-hidden="true"><use href="#i-user-plus"></use></svg>Inscription</button>
+        <button class="startbtn" onclick="go('s-register')"><svg class="ic-svg" aria-hidden="true"><use href="#i-user-plus"></use></svg>Inscription</button>
     </div>
 
     <!-- ==================== JAVASCRIPT ==================== -->
     <script>
-        // ── VARIABLES GLOBALES ──
+        // ============================================================
+        // INSCRIPTION PRO - GESTION DES ÉTAPES
+        // ============================================================
+        let regStep = 0;
+        let idFrontUploaded = false;
+        let idBackUploaded = false;
+
+        function regUpdate() {
+            const dots = document.querySelectorAll('.reg-dot');
+            const steps = document.querySelectorAll('.reg-step');
+            dots.forEach((dot, i) => {
+                dot.style.background = i < regStep ? 'var(--green)' : i === regStep ? 'var(--orange)' :
+                    'rgba(255,255,255,.10)';
+            });
+            steps.forEach((step, i) => {
+                step.style.display = i === regStep ? 'block' : 'none';
+            });
+            const backBtn = document.getElementById('reg-back');
+            backBtn.style.display = regStep === 0 ? 'none' : 'flex';
+            const btnText = document.getElementById('reg-btn-text');
+            btnText.textContent = regStep === 3 ? 'Créer mon compte' : 'Continuer';
+            // Scroll en haut
+            const activeStep = document.querySelector('.reg-step[style*="display: block"]');
+            if (activeStep) activeStep.scrollTop = 0;
+        }
+
+        function regNext() {
+            if (!regValidate(regStep)) return;
+            if (regStep === 3) {
+                finishRegistration();
+                return;
+            }
+            if (regStep < 3) {
+                regStep++;
+                regUpdate();
+            }
+        }
+
+        function regPrev() {
+            if (regStep > 0) {
+                regStep--;
+                regUpdate();
+            }
+        }
+
+        function regValidate(step) {
+            if (step === 0) {
+                const name = document.getElementById('reg-name').value.trim();
+                const phone = document.getElementById('reg-phone').value.trim();
+                const email = document.getElementById('reg-email').value.trim();
+                const birth = document.getElementById('reg-birth').value;
+                if (!name) { showToast('Veuillez entrer votre nom complet'); return false; }
+                if (!phone || phone.replace(/\s/g, '').length < 9) { showToast('Numéro de téléphone invalide'); return false; }
+                if (!email || !email.includes('@')) { showToast('Email invalide'); return false; }
+                if (!birth) { showToast('Veuillez entrer votre date de naissance'); return false; }
+                return true;
+            }
+            if (step === 1) {
+                const pwd = document.getElementById('reg-password').value;
+                const confirm = document.getElementById('reg-password-confirm').value;
+                if (pwd.length < 8) { showToast('Le mot de passe doit contenir au moins 8 caractères'); return false; }
+                if (!/[A-Z]/.test(pwd)) { showToast('Le mot de passe doit contenir une majuscule'); return false; }
+                if (!/[0-9]/.test(pwd)) { showToast('Le mot de passe doit contenir un chiffre'); return false; }
+                if (pwd !== confirm) { showToast('Les mots de passe ne correspondent pas'); return false; }
+                return true;
+            }
+            if (step === 2) {
+                if (!idFrontUploaded || !idBackUploaded) {
+                    showToast('Veuillez charger le recto ET le verso de votre CNI');
+                    return false;
+                }
+                return true;
+            }
+            return true;
+        }
+
+        // ============================================================
+        // GESTION DES MOTS DE PASSE
+        // ============================================================
+        function togglePwd(id, el) {
+            const input = document.getElementById(id);
+            if (!input) return;
+            const svg = el.querySelector('svg use');
+            if (input.type === 'password') {
+                input.type = 'text';
+                if (svg) svg.setAttribute('href', '#i-eye-off');
+            } else {
+                input.type = 'password';
+                if (svg) svg.setAttribute('href', '#i-eye');
+            }
+        }
+
+        // Vérification force mot de passe
+        document.addEventListener('DOMContentLoaded', function() {
+            const pwdInput = document.getElementById('reg-password');
+            if (pwdInput) {
+                pwdInput.addEventListener('input', function() {
+                    checkPwdStrength(this.value);
+                });
+                setTimeout(() => checkPwdStrength(pwdInput.value), 300);
+            }
+        });
+
+        function checkPwdStrength(pwd) {
+            const label = document.getElementById('pwd-strength-label');
+            const badge = document.getElementById('pwd-strength');
+            if (!label || !badge) return;
+            let strength = 'Faible';
+            let icon = '#i-alert-circle';
+            if (pwd.length >= 8 && /[A-Z]/.test(pwd) && /[0-9]/.test(pwd) && /[^A-Za-z0-9]/.test(pwd)) {
+                strength = 'Très fort';
+                icon = '#i-check-circle';
+                badge.style.background = 'var(--green-soft)';
+            } else if (pwd.length >= 8 && /[A-Z]/.test(pwd) && /[0-9]/.test(pwd)) {
+                strength = 'Fort';
+                icon = '#i-check-circle';
+                badge.style.background = 'var(--green-soft)';
+            } else if (pwd.length >= 6) {
+                strength = 'Moyen';
+                icon = '#i-info-circle';
+                badge.style.background = 'var(--orange-soft)';
+            } else if (pwd.length > 0) {
+                strength = 'Faible';
+                icon = '#i-alert-circle';
+                badge.style.background = 'var(--red-soft)';
+            } else {
+                badge.style.background = '';
+                icon = '#i-shield-check';
+            }
+            label.textContent = strength;
+            badge.querySelector('svg use').setAttribute('href', icon);
+        }
+
+        // ============================================================
+        // UPLOAD CARTE D'IDENTITÉ
+        // ============================================================
+        function handleIdUpload(side, input) {
+            const file = input.files[0];
+            if (!file) return;
+            const box = document.getElementById('id-' + side);
+            const status = document.getElementById(side + '-status');
+            const preview = document.getElementById(side + '-preview');
+
+            if (!file.type.startsWith('image/')) {
+                showToast('Veuillez sélectionner une image');
+                input.value = '';
+                return;
+            }
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('L\'image ne doit pas dépasser 5MB');
+                input.value = '';
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                box.style.borderColor = 'var(--green)';
+                box.style.borderStyle = 'solid';
+                box.style.background = 'var(--green-soft)';
+                status.textContent = '✅ Chargé';
+                status.style.color = 'var(--green)';
+
+                if (side === 'front') {
+                    idFrontUploaded = true;
+                    const name = document.getElementById('reg-name').value || 'Awa Ndiaye';
+                    document.getElementById('id-name').textContent = name;
+                    const birth = document.getElementById('reg-birth').value;
+                    if (birth) {
+                        const d = new Date(birth);
+                        document.getElementById('id-birth').textContent = d.toLocaleDateString('fr-FR');
+                    }
+                    document.getElementById('id-valid').textContent = '✅ Valide';
+                    document.getElementById('id-valid').style.color = 'var(--green)';
+                } else {
+                    idBackUploaded = true;
+                }
+
+                if (idFrontUploaded && idBackUploaded) {
+                    const badge = document.getElementById('id-verification');
+                    badge.style.background = 'var(--green-soft)';
+                    badge.querySelector('svg use').setAttribute('href', '#i-check-circle');
+                    badge.querySelector('span').textContent = 'Documents conformes — identité vérifiée';
+                    showToast('✅ Carte d\'identité vérifiée avec succès !');
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ============================================================
+        // FINALISATION INSCRIPTION
+        // ============================================================
+        function finishRegistration() {
+            if (!regValidate(2)) return;
+            const name = document.getElementById('reg-name').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const pwd = document.getElementById('reg-password').value;
+
+            document.getElementById('qr-name').textContent = name;
+            document.getElementById('qr-phone').textContent = '+221 ' + phone;
+
+            localStorage.setItem('maxit_user_name', name);
+            localStorage.setItem('maxit_user_phone', phone);
+            localStorage.setItem('maxit_user_email', email);
+            localStorage.setItem('maxit_user_pwd', pwd);
+            localStorage.setItem('maxit_registered', '1');
+
+            const btn = document.getElementById('reg-next');
+            btn.disabled = true;
+            btn.textContent = '✅ Compte créé !';
+
+            showToast('✅ Inscription réussie !');
+            setTimeout(() => {
+                go('s-login');
+                btn.disabled = false;
+                btn.textContent = 'Créer mon compte';
+            }, 1500);
+        }
+
+        // ============================================================
+        // NAVIGATION PRINCIPALE
+        // ============================================================
+        function go(id) {
+            if (autoTimer) { clearTimeout(autoTimer);
+                autoTimer = null; }
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            _currentScreen = id;
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.add('active');
+                const b = el.querySelector('.body, .reg-step, .login, .intro, .success');
+                if (b) b.scrollTop = 0;
+            }
+            // Si on va sur login, mettre à jour le nom
+            if (id === 's-login') {
+                const name = localStorage.getItem('maxit_user_name') || 'Awa';
+                const loginHi = document.querySelector('#s-login .login-hi');
+                if (loginHi) loginHi.textContent = 'Bonjour, ' + name;
+                const av = document.querySelector('#s-login .login-avatar');
+                if (av) av.textContent = name.charAt(0).toUpperCase();
+            }
+            // Si on va sur l'inscription, reset
+            if (id === 's-register') {
+                regStep = 0;
+                regUpdate();
+                // Reset des uploads
+                idFrontUploaded = false;
+                idBackUploaded = false;
+                document.querySelectorAll('.id-box').forEach(b => {
+                    b.style.borderColor = 'var(--line)';
+                    b.style.borderStyle = 'dashed';
+                    b.style.background = 'var(--surface)';
+                });
+                document.querySelectorAll('.id-box .status').forEach(s => {
+                    s.textContent = 'En attente';
+                    s.style.color = 'var(--grey)';
+                });
+                document.querySelectorAll('.id-box .preview').forEach(p => {
+                    p.style.display = 'none';
+                    p.src = '';
+                });
+                const badge = document.getElementById('id-verification');
+                if (badge) {
+                    badge.style.background = 'var(--green-soft)';
+                    badge.querySelector('svg use').setAttribute('href', '#i-check-circle');
+                    badge.querySelector('span').textContent = 'Documents conformes — identité vérifiée';
+                }
+                // Mettre à jour le QR avec les valeurs par défaut
+                document.getElementById('qr-name').textContent = document.getElementById('reg-name').value || 'Awa Ndiaye';
+                document.getElementById('qr-phone').textContent = '+221 ' + (document.getElementById('reg-phone').value ||
+                '77 123 45 67');
+            }
+        }
+
+        // ============================================================
+        // TOAST
+        // ============================================================
+        function showToast(msg) {
+            const toast = document.getElementById('toast-msg') || (function() {
+                const t = document.createElement('div');
+                t.className = 'toast-msg';
+                t.id = 'toast-msg';
+                document.querySelector('.phone').appendChild(t);
+                return t;
+            })();
+            toast.textContent = msg;
+            toast.classList.remove('show');
+            void toast.offsetWidth;
+            toast.classList.add('show');
+            clearTimeout(toast._t);
+            toast._t = setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // ============================================================
+        // INIT
+        // ============================================================
+        let _currentScreen = '';
+        let autoTimer = null;
         let balance = 47500;
         let balanceHidden = false;
         let amtRaw = '25000';
         let cancelOrigin = 's-send-done';
-        let _currentScreen = '';
-        let autoTimer = null;
         let curFilter = 'all';
         let activeCat = 'all';
         let passTarget = { name: 'Mon numéro', num: '77 123 45 67', isSelf: true };
@@ -5377,141 +5909,10 @@
         let txCount = parseInt(localStorage.getItem('maxit_tx_count') || '12', 10);
         let avatarColorIdx = parseInt(localStorage.getItem('maxit_av_col') || '0', 10);
 
-        // ── FORMATAGE ──
         const fmtNum = n => n.toLocaleString('fr-FR').replace(/\u202f/g, ' ');
         const parseAmt = txt => parseInt((txt || '0').replace(/[^0-9]/g, ''), 10) || 0;
 
-        // ── NAVIGATION ──
-        const SCREEN_DEPTH = {
-            's-intro': 1,
-            's-login': 1,
-            's-forgot': 2,
-            's-ob1': 2,
-            's-home': 2,
-            's-forgot-sent': 3,
-            's-ob2': 3,
-            's-send-benef': 3,
-            's-bills': 3,
-            's-pass-list': 3,
-            's-hwg': 3,
-            's-history': 3,
-            's-myqr': 3,
-            's-recharge': 3,
-            's-req-benef': 3,
-            's-tontine': 3,
-            's-ob3': 4,
-            's-send-amount': 4,
-            's-bill-detail': 4,
-            's-pass-pin': 4,
-            's-agency': 4,
-            's-scan': 4,
-            's-tx-detail': 4,
-            's-req-amount': 4,
-            's-tontine-new': 4,
-            's-tontine-detail': 4,
-            's-ob-done': 5,
-            's-transit': 5,
-            's-bill-pin': 5,
-            's-cancel': 5,
-            's-err-balance': 5,
-            's-err-network': 5,
-            's-scan-send': 5,
-            's-scan-shop': 5,
-            's-scan-agency': 5,
-            's-route': 5,
-            's-tontine-pin': 5,
-            's-send-done': 6,
-            's-shop-done': 6,
-            's-bill-done': 6,
-            's-pass-done': 6,
-            's-withdraw-done': 6,
-            's-recharge-done': 6,
-            's-cancel-done': 6,
-            's-req-done': 6,
-            's-tontine-done': 6
-        };
-
-        function go(id) {
-            if (autoTimer) { clearTimeout(autoTimer);
-                autoTimer = null; }
-            const fromDepth = SCREEN_DEPTH[_currentScreen] || 0;
-            const toDepth = SCREEN_DEPTH[id] || 1;
-            document.querySelectorAll('.screen').forEach(s => {
-                s.classList.remove('active', 'go-fwd', 'go-back', 'go-up', 's-transit-active');
-            });
-            _currentScreen = id;
-            const el = document.getElementById(id);
-            if (el) {
-                el.classList.add('active');
-                const b = el.querySelector('.body');
-                if (b) b.scrollTop = 0;
-            }
-
-            // Transit
-            if (id === 's-transit') {
-                const el2 = document.getElementById(id);
-                if (el2) el2.classList.add('s-transit-active');
-                const msg = document.getElementById('tmsg');
-                if (msg) {
-                    msg.textContent = 'Envoi en cours…';
-                    setTimeout(() => { if (msg) msg.textContent = 'Presque terminé…'; }, 1000);
-                }
-                const tips = ['Annulation possible jusqu\'à 24h après l\'envoi', 'Votre argent arrive en quelques secondes',
-                    'Un SMS de confirmation sera envoyé'
-                ];
-                const tipEl = document.getElementById('ttip');
-                if (tipEl) {
-                    let ti = 0;
-                    tipEl.textContent = tips[0];
-                    const tipInt = setInterval(() => {
-                        ti = (ti + 1) % tips.length;
-                        tipEl.textContent = tips[ti];
-                    }, 750);
-                    setTimeout(() => { clearInterval(tipInt); }, 1900);
-                }
-                setTimeout(() => go('s-send-done'), 1950);
-            }
-
-            // Succès
-            const successScreens = ['s-send-done', 's-shop-done', 's-bill-done', 's-pass-done', 's-withdraw-done',
-                's-recharge-done', 's-cancel-done', 's-req-done', 's-tontine-done'
-            ];
-            if (successScreens.includes(id)) {
-                applyBalance(id);
-                if (id !== 's-cancel-done' && id !== 's-req-done' && id !== 's-tontine-done') bumpTxCount();
-                const el2 = document.getElementById(id);
-                if (el2) el2.classList.add('autoredirect');
-                setTimeout(launchConfetti, 300);
-                showTxRef(id);
-                autoTimer = setTimeout(() => { autoTimer = null;
-                    go('s-home'); }, 3200);
-            }
-
-            // Home
-            if (id === 's-home') { animateBalance(balance);
-                applyGreeting(); }
-            if (id === 's-login') { applyGreeting();
-                updateLastAccess(); }
-            if (id === 's-send-amount') {
-                amtRaw = '25000';
-                document.getElementById('amt-val').textContent = '25 000';
-                document.querySelectorAll('.amt-sc').forEach((sc, i) => sc.classList.toggle('on', i === 1));
-                const msgEl = document.getElementById('send-msg');
-                if (msgEl) msgEl.value = '';
-                updateAmtHint();
-            }
-            if (id === 's-send-done') {
-                const msg = document.getElementById('send-msg')?.value?.trim();
-                const box = document.getElementById('send-done-smsg');
-                const txt = document.getElementById('send-done-smsg-txt');
-                if (box && txt) {
-                    if (msg) { txt.textContent = '“' + msg + '”';
-                        box.style.display = 'flex'; } else box.style.display = 'none';
-                }
-            }
-        }
-
-        // ── BALANCE ──
+        // Balance
         function renderBalance() {
             const el = document.getElementById('balance');
             if (!el) return;
@@ -5574,7 +5975,7 @@
             if (el) el.textContent = 'Manque ' + fmtNum(manque) + ' F pour cette opération';
         }
 
-        // ── AMOUNT KEYPAD ──
+        // Amount
         function fmtAmt(r) { return r ? parseInt(r, 10).toLocaleString('fr-FR').replace(/ /g, ' ') : '0'; }
 
         function amtKey(k) {
@@ -5608,7 +6009,7 @@
             go('s-send-pin');
         }
 
-        // ── REQUEST AMOUNT ──
+        // Request amount
         function reqAmtKey(k) {
             if (k === 'del') { reqAmtRaw = reqAmtRaw.slice(0, -1); } else { if (!reqAmtRaw && k === '0') return; if (
                     reqAmtRaw.length < 7) reqAmtRaw += k; }
@@ -5661,7 +6062,7 @@
             go('s-req-amount');
         }
 
-        // ── PIN KEYPADS ──
+        // PIN keypads
         function buildKeypad(kpId, dotsId, onComplete) {
             const kp = document.getElementById(kpId);
             if (!kp) return;
@@ -5708,7 +6109,6 @@
             });
         }
 
-        // ── BUILD ALL KEYPADS ──
         buildKeypad('kp-login', 'pin-login', (pin) => {
             const saved = localStorage.getItem('maxit_pin');
             if (!saved || pin === saved) { saveLastAccess();
@@ -5729,7 +6129,6 @@
             go('s-ob-done');
         });
 
-        // ── LOGIN ERROR ──
         function showLoginError() {
             const pinRow = document.getElementById('pin-login');
             if (pinRow) { pinRow.classList.remove('shake');
@@ -5749,7 +6148,6 @@
             }
         }
 
-        // ── BIO SIMULATION ──
         function simulateBio() {
             const btn = document.getElementById('bio-btn');
             if (!btn) return;
@@ -5761,7 +6159,6 @@
             }, 900);
         }
 
-        // ── LAST ACCESS ──
         function saveLastAccess() { localStorage.setItem('maxit_last_access', Date.now()); }
 
         function updateLastAccess() {
@@ -5781,7 +6178,6 @@
             line.style.display = 'flex';
         }
 
-        // ── GREETING ──
         function applyGreeting() {
             const h = new Date().getHours();
             let greet = h >= 6 && h < 12 ? 'Bonjour, Awa' : h >= 12 && h < 18 ? 'Bon après-midi, Awa' : h >= 18 ?
@@ -5790,11 +6186,10 @@
             if (loginHi) loginHi.textContent = greet;
         }
 
-        // ── CANCEL ──
         function cancelFrom(origin) { cancelOrigin = origin;
             go('s-cancel'); }
 
-        // ── PASS ──
+        // Pass
         function setPassTarget(el, name, num, isSelf) {
             passTarget = { name, num, isSelf };
             if (name !== 'Nouveau numéro') {
@@ -5855,7 +6250,7 @@
             }
         }
 
-        // ── BILLS ──
+        // Bills
         function selectBiller(name, cat, color) {
             const init = { 'SENELEC': 'SEN', 'CTO': 'CTO', 'Waaaf': 'WAF' } [name] || name.slice(0, 3).toUpperCase();
             document.getElementById('bill-title').textContent = name;
@@ -5907,7 +6302,7 @@
             if (empty) empty.style.display = found === 0 ? '' : 'none';
         }
 
-        // ── SCAN ──
+        // Scan
         function setScanAmt(v, el) {
             document.getElementById('scan-amt').textContent = v;
             document.querySelectorAll('#s-scan-send .amt-sc').forEach(c => c.classList.remove('on'));
@@ -5927,9 +6322,9 @@
             el.classList.add('on');
         }
 
-        function switchQ(m) { /* handled by nav */ }
+        function switchQ(m) {}
 
-        // ── RECHARGE ──
+        // Recharge
         let rcVal = '1 000',
             rcTarget = 'sur le 77 123 45 67';
 
@@ -5950,13 +6345,13 @@
             document.getElementById('rc-done-target').textContent = rcTarget;
         }
 
-        // ── TONTINE ──
+        // Tontine
         function setTChip(el) {
             document.querySelectorAll('.tchip').forEach(c => c.classList.remove('on'));
             el.classList.add('on');
         }
 
-        // ── HISTORY FILTER ──
+        // History
         function setFilter(f, el) {
             curFilter = f;
             document.querySelectorAll('#hfilters .fchip').forEach(c => c.classList.remove('on'));
@@ -5991,7 +6386,7 @@
             if (list) list.style.display = shown ? 'block' : 'none';
         }
 
-        // ── ONBOARDING ──
+        // Onboarding
         let introIdx = 0;
 
         function introNext() {
@@ -6009,11 +6404,11 @@
                 slides.forEach((s, i) => s.classList.toggle('on', i === 0));
                 dots.forEach((d, i) => d.classList.toggle('on', i === 0));
                 document.getElementById('introBtn').textContent = 'Suivant';
-                go('s-ob1');
+                go('s-register');
             }
         }
 
-        // ── TX REF ──
+        // Tx ref
         function genTxRef() { return 'TXN-2026-' + Math.floor(100000 + Math.random() * 900000); }
 
         function showTxRef(screenId) {
@@ -6029,7 +6424,6 @@
             rcpt.after(d);
         }
 
-        // ── SHARE RECEIPT ──
         function shareReceipt(id) {
             const sc = document.getElementById(id);
             if (!sc) return;
@@ -6049,7 +6443,6 @@
             }
         }
 
-        // ── SHARE QR ──
         function shareQR() {
             const txt = '✅ Mon QR code Maxit by Orange\nAwa Ndiaye\n77 123 45 67\nScannez pour me payer !';
             if (navigator.share) {
@@ -6060,23 +6453,7 @@
             }
         }
 
-        // ── TOAST ──
-        function showToast(msg) {
-            const phone = document.querySelector('.phone');
-            if (!phone) return;
-            let t = phone.querySelector('.toast-msg');
-            if (!t) { t = document.createElement('div');
-                t.className = 'toast-msg';
-                phone.appendChild(t); }
-            t.textContent = msg;
-            t.classList.remove('show');
-            void t.offsetWidth;
-            t.classList.add('show');
-            clearTimeout(t._t);
-            t._t = setTimeout(() => t.classList.remove('show'), 2500);
-        }
-
-        // ── GAMIFICATION ──
+        // Gamification
         const GAM_TIERS = [
             { at: 0, label: 'Débutant', next: 5 },
             { at: 5, label: 'Actif', next: 10 },
@@ -6106,7 +6483,7 @@
             updateGam();
         }
 
-        // ── AVATAR COLOR ──
+        // Avatar color
         const AVATAR_COLS = [{
             name: 'Orange',
             bg: 'linear-gradient(135deg,#FF8A1E,#FF6B00)',
@@ -6172,17 +6549,11 @@
             const c = AVATAR_COLS[idx];
             const phone = document.querySelector('.phone');
             const isLight = document.body.classList.contains('light');
-
-            // Mettre à jour la couleur de fond de la section balance
             const balanceBg = c.balanceBg || '#0E0C0A';
             const balanceBloc = document.getElementById('wave-balance-bloc');
-            if (balanceBloc) {
-                balanceBloc.style.background = balanceBg;
-            }
+            if (balanceBloc) balanceBloc.style.background = balanceBg;
             const ohead = document.querySelector('#s-home .ohead');
-            if (ohead) {
-                ohead.style.background = balanceBg;
-            }
+            if (ohead) ohead.style.background = balanceBg;
             document.documentElement.style.setProperty('--balance-bg', balanceBg);
 
             if (phone) {
@@ -6197,7 +6568,6 @@
                     primarySoft: c.primarySoft,
                     primaryTint: c.primaryTint
                 };
-
                 phone.style.setProperty('--orange', p.primary);
                 phone.style.setProperty('--orange-d', p.primaryD);
                 phone.style.setProperty('--orange-soft', p.primarySoft);
@@ -6205,29 +6575,20 @@
                 phone.style.setProperty('--orange-glass', c.glass || p.primarySoft);
                 phone.style.setProperty('--phone-ring', c.ring);
 
-                // Avatars
                 const homeAv = document.getElementById('home-av');
-                if (homeAv) {
-                    homeAv.style.background = c.bg;
+                if (homeAv) { homeAv.style.background = c.bg;
                     homeAv.style.color = c.isGlass ? 'var(--orange)' : '#fff';
-                    homeAv.style.borderColor = c.ring;
-                }
+                    homeAv.style.borderColor = c.ring; }
                 const loginAv = document.getElementById('login-av');
-                if (loginAv) {
-                    loginAv.style.background = c.bg;
+                if (loginAv) { loginAv.style.background = c.bg;
                     loginAv.style.color = c.isGlass ? 'var(--orange)' : '#fff';
-                    loginAv.style.boxShadow = `0 8px 28px ${c.isGlass ? 'rgba(255,121,0,.15)' : 'rgba(255,107,0,.4)'}`;
-                }
+                    loginAv.style.boxShadow = `0 8px 28px ${c.isGlass ? 'rgba(255,121,0,.15)' : 'rgba(255,107,0,.4)'}`; }
 
-                // Avatar swatches
                 document.querySelectorAll('.av-sw').forEach((sw, i) => {
                     sw.classList.toggle('sel', i === idx);
-                    if (i === idx) {
-                        sw.style.borderColor = c.ring;
-                    }
+                    if (i === idx) sw.style.borderColor = c.ring;
                 });
 
-                // Buttons
                 document.querySelectorAll('.btn:not(.sec):not(.ghost):not(.green)').forEach(btn => {
                     btn.style.background = `linear-gradient(145deg, ${p.primaryD}, ${p.primary})`;
                     btn.style.boxShadow = `0 6px 20px ${p.primarySoft}, 0 1px 0 rgba(255,255,255,.15) inset`;
@@ -6235,31 +6596,24 @@
             }
         }
 
-        // ── SCROLL EFFECT ──
+        // Scroll effect
         function initScrollEffect() {
             const body = document.getElementById('home-body');
             const ohead = document.getElementById('home-ohead');
             if (!body || !ohead) return;
-
             body.addEventListener('scroll', function() {
                 const scrollY = this.scrollTop;
                 const threshold = 30;
-
-                if (scrollY > threshold) {
-                    ohead.classList.add('scrolled');
-                } else {
-                    ohead.classList.remove('scrolled');
-                }
+                if (scrollY > threshold) ohead.classList.add('scrolled');
+                else ohead.classList.remove('scrolled');
             });
         }
 
-        // ── THEME ──
+        // Theme
         function applyTheme(light) {
             document.body.classList.toggle('light', light);
             const ico = document.getElementById('theme-icon');
-            if (ico) {
-                ico.setAttribute('href', light ? '#i-moon' : '#i-sun');
-            }
+            if (ico) ico.setAttribute('href', light ? '#i-moon' : '#i-sun');
             localStorage.setItem('maxit_theme', light ? 'light' : 'dark');
             applyAvatarColor(avatarColorIdx);
         }
@@ -6268,7 +6622,7 @@
             applyTheme(!document.body.classList.contains('light'));
         }
 
-        // ── AVATAR SHEET ──
+        // Avatar sheet
         function openAvSheet() {
             document.getElementById('av-overlay').classList.add('open');
             document.getElementById('av-sheet').classList.add('open');
@@ -6279,7 +6633,7 @@
             document.getElementById('av-sheet').classList.remove('open');
         }
 
-        // ── BUILD AVATAR SWATCHES ──
+        // Build avatar swatches
         (function buildSwatches() {
             const c = document.getElementById('av-swatches');
             if (!c) return;
@@ -6305,15 +6659,11 @@
             applyAvatarColor(avatarColorIdx);
         })();
 
-        // ── INIT ──
+        // Init
         (function init() {
             const theme = localStorage.getItem('maxit_theme');
-            if (theme === 'light') {
-                applyTheme(true);
-            } else {
-                const ico = document.getElementById('theme-icon');
-                if (ico) ico.setAttribute('href', '#i-sun');
-            }
+            if (theme === 'light') applyTheme(true);
+            else { const ico = document.getElementById('theme-icon'); if (ico) ico.setAttribute('href', '#i-sun'); }
 
             setTimeout(() => {
                 const sp = document.getElementById('splash');
@@ -6329,17 +6679,32 @@
                 setInterval(updateClock, 15000);
                 renderBalance();
                 updateGam();
-                demoNetwork();
                 applyAvatarColor(avatarColorIdx);
                 initScrollEffect();
+                // Mettre à jour les noms sur l'inscription
+                const nameField = document.getElementById('reg-name');
+                const phoneField = document.getElementById('reg-phone');
+                if (nameField && phoneField) {
+                    document.getElementById('qr-name').textContent = nameField.value || 'Awa Ndiaye';
+                    document.getElementById('qr-phone').textContent = '+221 ' + (phoneField.value || '77 123 45 67');
+                }
             }, 3150);
 
             document.querySelectorAll('.nav .home').forEach(el => {
                 el.addEventListener('click', () => go('s-home'));
             });
+
+            // Mettre à jour le QR en temps réel
+            document.addEventListener('input', function(e) {
+                if (e.target.id === 'reg-name') {
+                    document.getElementById('qr-name').textContent = e.target.value || 'Awa Ndiaye';
+                }
+                if (e.target.id === 'reg-phone') {
+                    document.getElementById('qr-phone').textContent = '+221 ' + (e.target.value || '77 123 45 67');
+                }
+            });
         })();
 
-        // ── CLOCK ──
         function updateClock() {
             const n = new Date();
             const h = String(n.getHours()).padStart(2, '0'),
@@ -6348,12 +6713,6 @@
             if (el) el.textContent = h + ':' + m;
         }
 
-        // ── NETWORK BANNER ──
-        function demoNetwork() {
-            // Retiré - plus de bandeau réseau
-        }
-
-        // ── CONFETTI ──
         function launchConfetti() {
             const container = document.querySelector('.confetti-container');
             if (!container) return;
@@ -6371,6 +6730,114 @@
                 setTimeout(() => piece.remove(), 3000);
             }
         }
+
+        // Override go pour le transit et les succès
+        const originalGo = go;
+        go = function(id) {
+            if (autoTimer) { clearTimeout(autoTimer);
+                autoTimer = null; }
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            _currentScreen = id;
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.add('active');
+                const b = el.querySelector('.body, .reg-step, .login, .intro, .success');
+                if (b) b.scrollTop = 0;
+            }
+
+            if (id === 's-login') {
+                const name = localStorage.getItem('maxit_user_name') || 'Awa';
+                const loginHi = document.querySelector('#s-login .login-hi');
+                if (loginHi) loginHi.textContent = 'Bonjour, ' + name;
+                const av = document.querySelector('#s-login .login-avatar');
+                if (av) av.textContent = name.charAt(0).toUpperCase();
+            }
+
+            if (id === 's-register') {
+                regStep = 0;
+                regUpdate();
+                idFrontUploaded = false;
+                idBackUploaded = false;
+                document.querySelectorAll('.id-box').forEach(b => {
+                    b.style.borderColor = 'var(--line)';
+                    b.style.borderStyle = 'dashed';
+                    b.style.background = 'var(--surface)';
+                });
+                document.querySelectorAll('.id-box .status').forEach(s => {
+                    s.textContent = 'En attente';
+                    s.style.color = 'var(--grey)';
+                });
+                document.querySelectorAll('.id-box .preview').forEach(p => {
+                    p.style.display = 'none';
+                    p.src = '';
+                });
+                const badge = document.getElementById('id-verification');
+                if (badge) {
+                    badge.style.background = 'var(--green-soft)';
+                    badge.querySelector('svg use').setAttribute('href', '#i-check-circle');
+                    badge.querySelector('span').textContent = 'Documents conformes — identité vérifiée';
+                }
+                document.getElementById('qr-name').textContent = document.getElementById('reg-name').value || 'Awa Ndiaye';
+                document.getElementById('qr-phone').textContent = '+221 ' + (document.getElementById('reg-phone').value ||
+                    '77 123 45 67');
+            }
+
+            if (id === 's-transit') {
+                const msg = document.getElementById('tmsg');
+                if (msg) { msg.textContent = 'Envoi en cours…';
+                    setTimeout(() => { if (msg) msg.textContent = 'Presque terminé…'; }, 1000); }
+                const tips = ['Annulation possible jusqu\'à 24h après l\'envoi', 'Votre argent arrive en quelques secondes',
+                    'Un SMS de confirmation sera envoyé'
+                ];
+                const tipEl = document.getElementById('ttip');
+                if (tipEl) {
+                    let ti = 0;
+                    tipEl.textContent = tips[0];
+                    const tipInt = setInterval(() => {
+                        ti = (ti + 1) % tips.length;
+                        tipEl.textContent = tips[ti];
+                    }, 750);
+                    setTimeout(() => { clearInterval(tipInt); }, 1900);
+                }
+                setTimeout(() => go('s-send-done'), 1950);
+            }
+
+            const successScreens = ['s-send-done', 's-shop-done', 's-bill-done', 's-pass-done', 's-withdraw-done',
+                's-recharge-done', 's-cancel-done', 's-req-done', 's-tontine-done'
+            ];
+            if (successScreens.includes(id)) {
+                applyBalance(id);
+                if (id !== 's-cancel-done' && id !== 's-req-done' && id !== 's-tontine-done') bumpTxCount();
+                const el2 = document.getElementById(id);
+                if (el2) el2.classList.add('autoredirect');
+                setTimeout(launchConfetti, 300);
+                showTxRef(id);
+                autoTimer = setTimeout(() => { autoTimer = null;
+                    go('s-home'); }, 3200);
+            }
+
+            if (id === 's-home') { animateBalance(balance);
+                applyGreeting(); }
+            if (id === 's-login') { applyGreeting();
+                updateLastAccess(); }
+            if (id === 's-send-amount') {
+                amtRaw = '25000';
+                document.getElementById('amt-val').textContent = '25 000';
+                document.querySelectorAll('.amt-sc').forEach((sc, i) => sc.classList.toggle('on', i === 1));
+                const msgEl = document.getElementById('send-msg');
+                if (msgEl) msgEl.value = '';
+                updateAmtHint();
+            }
+            if (id === 's-send-done') {
+                const msg = document.getElementById('send-msg')?.value?.trim();
+                const box = document.getElementById('send-done-smsg');
+                const txt = document.getElementById('send-done-smsg-txt');
+                if (box && txt) {
+                    if (msg) { txt.textContent = '“' + msg + '”';
+                        box.style.display = 'flex'; } else box.style.display = 'none';
+                }
+            }
+        };
     </script>
 </body>
 </html>
